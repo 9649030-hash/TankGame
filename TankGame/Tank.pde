@@ -16,29 +16,39 @@ class Tank {
     iTankL = loadImage("Oswald.tankL.png");
     iTankD = loadImage("Oswald.tankD.png");
     iTankR =  loadImage("Oswald.tankR.png");
-    idir = 'a';
+    idir = 's';
   }
   void display() {
     imageMode(CENTER);
-    if(idir == 'a') {
+    if (idir == 'a') {
+      image(iTankL, x, y);
+    }
+    if (idir == 'w') {
       image(iTank, x, y);
-    }
-    image(iTank, x, y);
-  }
-
-
-  void move(char dir) { //dir = direction
-    if (dir == 'w') {
-      y = y - speed;
-    } else if (dir == 's') {
-      y = y + speed;
-    } else if (dir == 'a') {
-      x = x - speed;
-    } else if (dir == 'd') {
-      x = x + speed;
+    } else if (idir == 's') {
+      image(iTankD, x, y);
+    } else if (idir == 'd') {
+      image(iTankR, x, y);
     }
   }
 
-  void fire() {
+
+    void move(char dir) { //dir = direction
+      if (dir == 'w') {
+        y = y - speed;
+        idir = 'w';
+      } else if (dir == 's') {
+        y = y + speed;
+        idir = 's';
+      } else if (dir == 'a') {
+        x = x - speed;
+        idir = 'a';
+      } else if (dir == 'd') {
+        x = x + speed;
+        idir = 'd';
+      }
+    }
+
+    void fire() {
+    }
   }
-}

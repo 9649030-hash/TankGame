@@ -1,15 +1,17 @@
 // Tye Oswald | 1 Apr | Tank Game
 Tank Boss, Jimmy, Greg, RICKY;
+PImage ArmyBack;
 void setup() {
-  size(500, 500);
+  size(700, 700);
   Boss = new Tank();
   //Jimmy = new Tank();
   //Greg = new Tank();
   //RICKY = new Tank();
+  ArmyBack = loadImage("ArmyBack.png");
 }
 
 void draw() {
-  background(67);
+  background(ArmyBack);
   Boss.display();
 }
 
