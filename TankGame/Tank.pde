@@ -6,8 +6,8 @@ class Tank {
 
   //Constructor
   Tank() {
-    x = 100.0;
-    y = 100.0;
+    x = 250.0;
+    y = 120.0;
     w = 100.0;
     h = 100.0;
     speed = 10.0;

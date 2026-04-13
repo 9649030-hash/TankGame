@@ -1,18 +1,24 @@
 // Tye Oswald | 1 Apr | Tank Game
 Tank Boss, Jimmy, Greg, RICKY;
-PImage ArmyBack;
+Obstacle o1;
+PImage ArmyBack, MoonBack;
 void setup() {
   size(700, 700);
   Boss = new Tank();
+  o1 = new Obstacle(100,100,100,50,5,2);
   //Jimmy = new Tank();
   //Greg = new Tank();
   //RICKY = new Tank();
   ArmyBack = loadImage("ArmyBack.png");
+  MoonBack = loadImage("MoonBackground.png");
 }
 
 void draw() {
-  background(ArmyBack);
+  //background(ArmyBack);
+  background(MoonBack);
+  o1.display();
   Boss.display();
+  o1.move();
 }
 
 void keyPressed() {
