@@ -3,7 +3,7 @@ Tank Boss, Jimmy, Greg, RICKY;
 Obstacle o1;
 ObstacleTewo Al;
 ObstacleThree Evil;
-PImage ArmyBack, MoonBack;
+PImage ArmyBack, MoonBack, BeachBack;
 void setup() {
   size(700, 700);
   Boss = new Tank();
@@ -15,11 +15,13 @@ void setup() {
   //RICKY = new Tank();
   ArmyBack = loadImage("ArmyBack.png");
   MoonBack = loadImage("MoonBackground.png");
+  BeachBack = loadImage("Beach.png");
 }
 
 void draw() {
-  //background(ArmyBack);
+  background(ArmyBack);
   background(MoonBack);
+  background(BeachBack);
   o1.display();
   Boss.display();
   o1.move();
