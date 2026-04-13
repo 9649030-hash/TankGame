@@ -1,11 +1,11 @@
-class Obstacle {
+class ObstacleTewo {
   //Member Variable
   float x, y, w, h, speed, health;
-  PImage iTank;
+  PImage Alien;
   char idir;
 
   //Constructor
-  Obstacle(float x, float y, float w, float h, float speed, float health) {
+  ObstacleTewo(float x, float y, float w, float h, float speed, float health) {
   this.x =x;
   this.y = y;
   this.w = w;
@@ -13,17 +13,14 @@ class Obstacle {
   this.speed = speed;
   this.health = health;
   idir = 'w';
-    iTank = loadImage("Oswald.tank.png");
+    Alien = loadImage("Alien.png");
     //iTankL = loadImage("Oswald.tankL.png");
     //iTankD = loadImage("Oswald.tankD.png");
     //iTankR =  loadImage("Oswald.tankR.png");
     idir = 's';
   }
   void display() {
-image(iTank,x,y);
- //fill(128);
- //rectMode(CENTER);
- //rect(x,y,w,h);
+image(Alien,x,y);
   }
 
 
