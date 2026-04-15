@@ -16,7 +16,7 @@ class Tank {
     iTankL = loadImage("Oswald.tankL.png");
     iTankD = loadImage("Oswald.tankD.png");
     iTankR =  loadImage("Oswald.tankR.png");
-    idir = 's';
+    idir = 'w';
   }
   void display() {
     imageMode(CENTER);
