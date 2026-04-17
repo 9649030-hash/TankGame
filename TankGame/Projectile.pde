@@ -1,15 +1,16 @@
 class Projectile {
   //Member Variable
-  float x, y, w, h, speed, health;
+  float x, y, w, h, speed;
+  float vx, vy;
   PImage Evil;
   char idir;
 
   //Constructor
-  Projectile(float x, float y, float w, float h) {
+  Projectile(float x, float y, float vx, float vy) {
   this.x =x;
   this.y = y;
-  this.w = w;
-  this.h = h;
+  this.vx = vx;
+  this.vy = vy;
   speed = 10;
   //this.health = health;
   //this.health = health;
@@ -27,6 +28,8 @@ class Projectile {
 
 
     void move() {
-      y = y - speed;
+      x += vx;
+      y += vy;
+      //y = y - speed;
     }
 }

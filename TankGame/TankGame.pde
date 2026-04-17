@@ -35,7 +35,8 @@ void draw() {
   Projectile p = projectiles.get(i);
   p.display();
   p.move();
-}
+  }
+
   //Al.display();
   //Al.move();
   //Evil.display();
@@ -55,6 +56,17 @@ void keyPressed() {
 }
 
 void mousePressed() {
+  float dx = mouseX - boss.x;
+  float dy = mouseY - boss.y;
+  float mag = sqrt(dx*dx + dy*dy);
+  
+  if (mag > 0) {
+    dx /= mag;
+    dy /= mag;
+    float speed = 5;
+    projectiles.add(new Projectile(boss.x, boss.y, dx * speed, dy * speed));
+  }
+    println(projectiles.size());
   projectiles.add(new Projectile(boss.x,boss.y,4,10));
 }
 
