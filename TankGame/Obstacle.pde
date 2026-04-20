@@ -29,7 +29,7 @@ image(Evil,x,y);
 
     void move() {
   x= x+speed;
-  if(x>width){
+  if(x>width+w/2){
     x = 0;
   }
     }
