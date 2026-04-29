@@ -17,7 +17,7 @@ void setup() {
   boss = new Tank();
   // o1 = new Obstacle(100,100,100,50,5,2);
   //obstacles.add(new Obstacle(300,200,100,100,10,5));
-  objTimer = new Timer(2000);
+  objTimer = new Timer(1000);
   objTimer.start();
   puTimer = new Timer(2000);
   puTimer.start();
@@ -46,16 +46,13 @@ void draw() {
     objTimer.start();
   }
   //Distribute powerups on timer
-  if (puTimer.isFinished()) {
-    // Add a powerup
-    powerups.add(new PowerUp(100, 100));
-    //Restart Timer
-    puTimer.start();
-  }
+  //if (puTimer.isFinished()) {
+  //  // Add a powerup
+  //  powerups.add(new PowerUp(100, 100));
+  //  //Restart Timer
+  //  puTimer.start();
+  //}
   //o1.display();
-  boss.display();
-  //o1.move();
-  scorePanel();
 
   //Displayes and removes obstacles
   for (int i = 0; i < obstacles.size(); i++) {
@@ -70,7 +67,7 @@ void draw() {
       //impact to change score, health and obstacle
       score -=1;
       obstacles.remove(i);
-      //Tank.health -=1;
+      boss.health -=1;
     }
   }
   //Displayes and removes obstacles
@@ -80,16 +77,31 @@ void draw() {
     pu.move();
     if (pu.reachedEdge()) {
       score -=1;
-      powerups.remove(i);
+      powerups.remove(pu);
+    }
+
+    if (pu.intersect()) {
+      //Turret
+      if (pu.type == 't') {
+        boss.turretCount++;
+      }
+      //Ammo
+      if (pu.type == 'a') {
+        boss.laserCount = boss.laserCount + 3;
+      }
+      //Health
+      if (pu.type == 'h') {
+        boss.health += 1;
+      }
+
+      powerups.remove(pu);
     }
   }
   // detect if close to tank
   // Render and detect collision
   for (int i = 0; i < projectiles.size(); i++) {
     Projectile p = projectiles.get(i);
-    if (p.reachedEdge()) {
-      projectiles.remove(i);
-    }
+
     for (int j = 0; j < obstacles.size(); j++) {
       Obstacle o = obstacles.get(j);
       if (p.intersect(o)) {
@@ -97,13 +109,18 @@ void draw() {
         projectiles.remove(p);
         obstacles.remove(o);
         int(random(1, 10));
+        powerups.add(new PowerUp(50, 50, o.x, o.y));
       }
     }
     p.display();
     p.move();
+    if (p.reachedEdge()) {
+      projectiles.remove(p);
+    }
   }
+  boss.display();
+  scorePanel();
 }
-
 void keyPressed() {
   if (key == 'w') {
     boss.move('w');
@@ -116,6 +133,9 @@ void keyPressed() {
   } else if (key == 'r') {
     mag = 10;
   }
+  //else if (key == '`') {
+  //  boss.laserCount = 100;
+  //}
 }
 
 void mousePressed() {
@@ -128,11 +148,18 @@ void mousePressed() {
     dx /= d;
     dy /= d;
     float speed = 5;
+
+    if (boss.turretCount == 1 && boss.laserCount > 0) {
+      projectiles.add(new Projectile(boss.x+30, boss.y+30, dx * speed, dy * speed));
+      boss.laserCount = boss.laserCount -1;
+    } else if (boss.turretCount == 2 && boss.laserCount > 2) {
+      projectiles.add(new Projectile(boss.x-30, boss.y-30, dx * speed, dy * speed));
+      boss.laserCount = boss.laserCount -1;
+    } else if (boss.turretCount == 3 && boss.laserCount > 2) {
+      projectiles.add(new Projectile(boss.x-20, boss.y-20, dx * speed, dy * speed));
+      boss.laserCount = boss.laserCount -1;
+    }
     projectiles.add(new Projectile(boss.x, boss.y, dx * speed, dy * speed));
-    //projectiles.add(new Projectile(boss.x+30, boss.y+30, dx * speed, dy * speed));
-    //projectiles.add(new Projectile(boss.x+40, boss.y+40, dx * speed, dy * speed));
-    //projectiles.add(new Projectile(boss.x-30, boss.y-30, dx * speed, dy * speed));
-    //projectiles.add(new Projectile(boss.x-40, boss.y-40, dx * speed, dy * speed));
   }
   println(projectiles.size());
   //projectiles.add(new Projectile(boss.x,boss.y,4,10));
@@ -147,4 +174,6 @@ void scorePanel() {
   textSize(25);
   textAlign(CENTER);
   text("Score:" + score, width/2, 25);
+  text("Health:" + boss.health, width/2-150, 25);
+  text("Ammo:" + boss.laserCount, width/2+150, 25);
 }

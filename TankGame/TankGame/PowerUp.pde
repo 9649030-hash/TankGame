@@ -1,28 +1,31 @@
 class PowerUp {
   //Member Variable
-  float x, y, w, h, speed;
-  //PImage Evil;
+  float x, y, w, h, speed,r;
+  PImage healthImg;
   char type;
 
   //Constructor
-  PowerUp(float w, float h) {
+  PowerUp(float w, float h, float x, float y) {
     this.w = w;
     this.h = h;
-    this. h = h;
-    if (int(random(4))==2) {
+    this.x=x;
+    this.y=y;
+    healthImg = loadImage("Health.png");
+    r= random(0,1);
+    if (r>.67) {
       type = 'h';
-      x = random(width);
-      y = height +100;
-    } else if (int(random(3))==1) {
+      //x = random(width);
+      //y = height -100;
+    } else if (r>.33) {
       type = 't';
-      x = 100;
-      y = random(height);
-    } else if (int(random(2))==1) {
+      //x = 100;
+      //y = random(height);
+    } else   {
       type = 'a';
-      x = width-100;
-      y = random(height);
+      //x = width-100;
+      //y = random(height);
     }
-    //Evil = loadImage("EvilTank.png");
+ 
   }
 
   //Health, Turret, and Ammo
@@ -31,18 +34,19 @@ class PowerUp {
   void display() {
     //image(Evil, x, y);
     if (type == 'h') {
+      //image(healthImg, x, y);
       fill(0, 255, 0);
-      ellipse(x, y, w, h);
+      ellipse(x, y, w+25, h+25);
       fill(255);
       text("Health", x, y);
     } else if (type == 't') {
       fill(0, 0, 255);
-      ellipse(x, y, w, h);
+      ellipse(x, y, w+25, h+25);
       fill(255);
       text("Turret", x, y);
     } else if (type == 'a') {
       fill(255, 0, 0);
-      ellipse(x, y, w, h);
+      ellipse(x, y, w+25, h+25);
       fill(255);
       text("Ammo", x, y);
     }
@@ -60,4 +64,14 @@ class PowerUp {
       return false;
     }
   }
+   boolean intersect() {
+    float distance = dist(x, y, boss.x, boss.y);
+    if (distance < boss.w/2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  
 }

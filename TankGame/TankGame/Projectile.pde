@@ -32,8 +32,8 @@ class Projectile {
 
 
   void move() {
-    x += vx * 2;
-    y += vy * 2;
+    x += vx * 4;
+    y += vy * 4;
     //y = y - speed;
   }
   boolean intersect(Obstacle o) {
